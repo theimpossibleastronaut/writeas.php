@@ -1,3 +1,7 @@
+[![License](https://poser.pugx.org/theimpossibleastronaut/write.as/license)](https://packagist.org/packages/theimpossibleastronaut/write.as)
+[![Latest Stable Version](https://poser.pugx.org/theimpossibleastronaut/write.as/v/stable)](https://packagist.org/packages/theimpossibleastronaut/write.as)
+[![Latest Unstable Version](https://poser.pugx.org/theimpossibleastronaut/write.as/v/unstable)](https://packagist.org/packages/theimpossibleastronaut/write.as)
+
 # writeas.php
 Implementation of the write.as API in PHP.
 
@@ -33,7 +37,7 @@ $post->save();
 
 # Work in progress
 
-[ ] Authentication
-[x] Posts
-[ ] Collections
-[ ] Users
+- [ ] Authentication
+- [x] Posts
+- [ ] Collections
+- [ ] Users
