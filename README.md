@@ -1,3 +1,4 @@
+![PHP Composer](https://github.com/theimpossibleastronaut/writeas.php/workflows/PHP%20Composer/badge.svg)
 [![License](https://poser.pugx.org/theimpossibleastronaut/write.as/license)](https://packagist.org/packages/theimpossibleastronaut/write.as)
 [![Latest Stable Version](https://poser.pugx.org/theimpossibleastronaut/write.as/v/stable)](https://packagist.org/packages/theimpossibleastronaut/write.as)
 [![Latest Unstable Version](https://poser.pugx.org/theimpossibleastronaut/write.as/v/unstable)](https://packagist.org/packages/theimpossibleastronaut/write.as)
