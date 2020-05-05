@@ -1,0 +1,10 @@
+<?php
+declare(strict_types=1);
+
+const DEFAULT_ENDPOINT = "https://write.as/api";
+const TOR_ENDPOINT = "http://writeas7pm7rcdqg.onion/api";
+
+require_once( "Context.php" );
+require_once( "Post.php" );
+require_once( "Collection.php" );
+?>
