@@ -21,6 +21,8 @@ class Context
 		$this->ch = curl_init( $this->endpoint . $url );
 
 		curl_setopt( $this->ch, CURLOPT_RETURNTRANSFER, 1 );
+		curl_setopt( $this->ch, CURLOPT_FOLLOWLOCATION, 1 );
+		curl_setopt( $this->ch, CURLOPT_AUTOREFERER, 1 );
 
 		if ( !empty( $postdata ) ) {
 			curl_setopt( $this->ch, CURLOPT_POST, 1 );
