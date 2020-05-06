@@ -7,4 +7,5 @@ const TOR_ENDPOINT = "http://writeas7pm7rcdqg.onion/api";
 require_once( "Context.php" );
 require_once( "Post.php" );
 require_once( "Collection.php" );
+require_once( "Styles.php" );
 ?>

@@ -32,13 +32,13 @@ class Context
 
 		curl_close( $this->ch );
 
-		if ( $output !== false ) {
+		if ( $output !== false && !empty( $output ) ) {
 			$js = @json_decode( $output );
 			if ( !empty( $js ) ) {
 				return $js;
 			}
 
-			throw new Exception( "Failed to decode response" );
+			throw new \Exception( "Failed to decode response" );
 		}
 
 		return null;

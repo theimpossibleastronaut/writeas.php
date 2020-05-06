@@ -18,5 +18,12 @@ class Collection
 		$this->context = $context;
 	}
 
+	public function get( string $alias ) {
+		$url = "/collections/" . $alias;
+		$response = $this->context->request( $url );
+		$this->context->updateObject( $this, $response );
+		var_dump($this);
+	}
+
 }
 ?>
