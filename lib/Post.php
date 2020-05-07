@@ -24,12 +24,20 @@ class Post
 		$this->context = $context;
 	}
 
+	/**
+	 * @param  string $id 	the post id to retrieve.
+	 */
 	public function get( string $id ) {
 		$url = "/posts/" . $id;
 		$response = $this->context->request( $url );
 		$this->context->updateObject( $this, $response );
 	}
 
+	/**
+	 * Saves a post. If a token is present then it updates the post.
+	 * You are responsible to store the token returned by this call
+	 * to be able to update the post.
+	 */
 	public function save() {
 		$req = $this->context->buildRequest(
 			$this,
@@ -45,6 +53,9 @@ class Post
 		$this->context->updateObject( $this, $response );
 	}
 
+	/**
+	 * Delete the given post. The token must be provided.
+	 */
 	public function delete( ) {
 		if ( !empty( $this->id ) && !empty( $this->token ) ) {
 			$url = "/posts/" . $this->id . "?token=" . $this->token;
