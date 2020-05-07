@@ -1,7 +1,7 @@
 ![PHP Composer](https://github.com/theimpossibleastronaut/writeas.php/workflows/PHP%20Composer/badge.svg)
-[![License](https://poser.pugx.org/theimpossibleastronaut/write.as/license)](https://packagist.org/packages/theimpossibleastronaut/write.as)
-[![Latest Stable Version](https://poser.pugx.org/theimpossibleastronaut/write.as/v/stable)](https://packagist.org/packages/theimpossibleastronaut/write.as)
-[![Latest Unstable Version](https://poser.pugx.org/theimpossibleastronaut/write.as/v/unstable)](https://packagist.org/packages/theimpossibleastronaut/write.as)
+[![License](https://poser.pugx.org/theimpossibleastronaut/writeas.php/license)](https://packagist.org/packages/theimpossibleastronaut/write.as)
+[![Latest Stable Version](https://poser.pugx.org/theimpossibleastronaut/writeas.php/v/stable)](https://packagist.org/packages/theimpossibleastronaut/write.as)
+[![Latest Unstable Version](https://poser.pugx.org/theimpossibleastronaut/writeas.php/v/unstable)](https://packagist.org/packages/theimpossibleastronaut/write.as)
 
 # writeas.php
 Implementation of the write.as API in PHP.
