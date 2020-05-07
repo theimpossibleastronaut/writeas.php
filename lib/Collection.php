@@ -22,7 +22,34 @@ class Collection
 		$url = "/collections/" . $alias;
 		$response = $this->context->request( $url );
 		$this->context->updateObject( $this, $response );
-		var_dump($this);
+	}
+
+	/**
+	 * @param  string $format Default returns an raw text, but if you specify "html" you will get formatted HTML.
+	 * @return array Array of Posts
+	 */
+	public function getPosts( string $format = "" ):array {
+		$out = array();
+
+		$url = "/collections/" . $this->alias . "/posts";
+
+		if ( !empty( $format ) && $format === "html" ) {
+			$urls .= "?body=" . $format;
+		}
+
+		$response = $this->context->request( $url );
+
+		if ( isset( $response ) && isset( $response->data ) &&
+			 isset( $response->data->posts ) && is_array( $response->data->posts ) )
+		{
+			foreach ( $response->data->posts as $postdata ) {
+				$post = new Post( $this->context );
+				$this->context->updateObject( $post, $postdata );
+				$out[] = $post;
+			}
+		}
+
+		return $out;
 	}
 
 }

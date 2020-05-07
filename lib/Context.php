@@ -103,8 +103,13 @@ class Context
 	 *						possible new values.
 	 */
 	public function updateObject( $obj, $json ):void {
-		if ( !is_null( $json ) && isset( $json->data ) ) {
-			foreach ( $json->data as $keyName => $keyValue ) {
+		if ( !is_null( $json ) ) {
+			$target = $json;
+			if ( isset( $json->data ) ) {
+				$target = $json->data;
+			}
+
+			foreach ( $target as $keyName => $keyValue ) {
 				if ( $keyName === "created" || $keyName === "updated" ) {
 					if ( !empty( $keyValue ) ) {
 						$keyValue = \DateTime::createFromFormat( "Y-m-d\TH:i:sT", $keyValue );
