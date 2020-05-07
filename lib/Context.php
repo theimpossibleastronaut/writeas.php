@@ -41,11 +41,11 @@ class Context
 		curl_setopt( $this->ch, CURLOPT_RETURNTRANSFER, 1 );
 		curl_setopt( $this->ch, CURLOPT_FOLLOWLOCATION, 1 );
 		curl_setopt( $this->ch, CURLOPT_AUTOREFERER, 1 );
+		curl_setopt( $this->ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 
 		if ( !empty( $postdata ) ) {
 			curl_setopt( $this->ch, CURLOPT_POST, 1 );
 			curl_setopt( $this->ch, CURLOPT_POSTFIELDS, $postdata );
-			curl_setopt( $this->ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 		}
 
 		$output = curl_exec( $this->ch );
