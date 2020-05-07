@@ -3,11 +3,19 @@ declare(strict_types=1);
 
 namespace writeas;
 
+/**
+ * Communication layer. Has basic responsability for communicating with the instance.
+ * Allows to easily build request and handle responses. Contexts are passed to objects,
+ * this allows you to work with different contexts.
+ */
 class Context
 {
 	protected $endpoint;
 	protected $ch;
 
+	/**
+	 * @var string $endpoint	Optional endpoint, defaults to DEFAULT_ENDPOINT
+	 */
 	function __construct( string $endpoint = null ) {
 		$this->endpoint = $endpoint;
 
@@ -16,6 +24,16 @@ class Context
 		}
 	}
 
+	/**
+	 * Tries to request communication with the instance defined in this Context.
+	 * If $postdata is omitted, a GET request will be issued. If $postdata is specified
+	 * then it will transform into POST.
+	 *
+	 * @var string $url	The appended url to communicate with. F.e. /posts/<id>
+	 * @var string $postdata	Postdata as string to communicate, most likely this is
+	 *							a string created by json_encode
+	 * @return mixed	null if nothing to report. json object if valid response.
+	 */
 	public function request( string $url, ?string $postdata = null ) {
 
 		$this->ch = curl_init( $this->endpoint . $url );
@@ -46,6 +64,16 @@ class Context
 		return null;
 	}
 
+	/**
+	 * Builds a request out of an object with the specified arguments.
+	 * It will create a json request of non empty values and does some type
+	 * casting for you.
+	 *
+	 * @var stdClass $obj	Object to check arguments on
+	 * @var $arguments	List of strings that contain keynames on the object
+	 *					that you'd possibly want to include in the request.
+	 * @return string	json encoded string
+	 */
 	public function buildRequest( $obj, ...$arguments ):string {
 		$out = "";
 		$json = new \stdClass;
@@ -65,6 +93,15 @@ class Context
 		return $out;
 	}
 
+	/**
+	 * Updates an object with properties from a received json object.
+	 * This is useful for synchronising state with the result you just
+	 * received from the server.
+	 *
+	 * @var stdClass $obj	Object to work on
+	 * @var stdClass $json	Response object with data property containing
+	 *						possible new values.
+	 */
 	public function updateObject( $obj, $json ):void {
 		if ( !is_null( $json ) && isset( $json->data ) ) {
 			foreach ( $json->data as $keyName => $keyValue ) {
