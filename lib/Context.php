@@ -70,7 +70,7 @@ class Context
 	 * casting for you.
 	 *
 	 * @var stdClass $obj	Object to check arguments on
-	 * @var $arguments	List of strings that contain keynames on the object
+	 * @var mixed $arguments	List of strings that contain keynames on the object
 	 *					that you'd possibly want to include in the request.
 	 * @return string	json encoded string
 	 */

@@ -34,7 +34,7 @@ class Collection
 		$url = "/collections/" . $this->alias . "/posts";
 
 		if ( !empty( $format ) && $format === "html" ) {
-			$urls .= "?body=" . $format;
+			$url .= "?body=" . $format;
 		}
 
 		$response = $this->context->request( $url );
