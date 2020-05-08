@@ -36,6 +36,12 @@ $post->body = "Hello from Writeas.php";
 $post->save();
 ```
 
+The Context is your livelyhood for communicating with the instance you specify in it's constructor. It handles the building of requests and updating of object instances.
+
+If you work with Anonymous data like Posts, it's important that you save the returned token that you get after initially saving your Post. Otherwise you are unable to update the post.
+
+Objects like Post or Collection will update automagically after calling a save/get functions. For instance, if you ->save a Post, it's token will appear in ->token.
+
 # Work in progress
 
 - [ ] Authentication
