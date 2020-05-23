@@ -10,8 +10,13 @@ namespace writeas;
  */
 class Context
 {
-	protected $endpoint;
-	protected $ch;
+	protected $endpoint = null;
+	protected $ch = null;
+	protected $accessToken = null;
+	protected $currentUser = null;
+
+	public function getAccessToken():?string { return $this->accessToken; }
+	public function getCurrentUser():?User { return $this->currentUser; }
 
 	/**
 	 * @var string $endpoint	Optional endpoint, defaults to DEFAULT_ENDPOINT
@@ -34,18 +39,27 @@ class Context
 	 *							a string created by json_encode
 	 * @return mixed	null if nothing to report. json object if valid response.
 	 */
-	public function request( string $url, ?string $postdata = null ) {
+	public function request( string $url, ?string $postdata = null, ?string $customRequest = null ) {
 
 		$this->ch = curl_init( $this->endpoint . $url );
+
+		$headers = array('Content-Type: application/json');
+		if ( isset( $this->accessToken ) && !empty( $this->accessToken ) ) {
+			$headers[] = 'Authorization: Token ' . $this->accessToken;
+		}
 
 		curl_setopt( $this->ch, CURLOPT_RETURNTRANSFER, 1 );
 		curl_setopt( $this->ch, CURLOPT_FOLLOWLOCATION, 1 );
 		curl_setopt( $this->ch, CURLOPT_AUTOREFERER, 1 );
-		curl_setopt( $this->ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+		curl_setopt( $this->ch, CURLOPT_HTTPHEADER, $headers );
 
 		if ( !empty( $postdata ) ) {
 			curl_setopt( $this->ch, CURLOPT_POST, 1 );
 			curl_setopt( $this->ch, CURLOPT_POSTFIELDS, $postdata );
+		}
+
+		if ( !empty( $customRequest ) ) {
+			curl_setopt( $this->ch, CURLOPT_CUSTOMREQUEST, $customRequest );
 		}
 
 		$output = curl_exec( $this->ch );
@@ -118,6 +132,67 @@ class Context
 
 				$obj->$keyName = $keyValue;
 			}
+		}
+	}
+
+	/**
+	 * Authenticate the user and provide access tokens.
+	 * @param  string $alias    login name
+	 * @param  string $password password
+	 */
+	public function authenticate( string $alias, string $password ):?User {
+		$url = "/auth/login";
+		$req = new \stdClass;
+		$req->alias = $alias;
+		$req->pass = $password;
+
+		$response = $this->request( $url, json_encode( $req ) );
+
+		if ( isset( $response ) && isset( $response->data ) ) {
+			if ( isset( $response->data->access_token ) ) {
+				$this->accessToken = $response->data->access_token;
+			}
+
+			if ( isset( $response->data->user ) ) {
+				$user = new User( $this );
+				$this->updateObject( $user, $response->data->user );
+
+				$this->currentUser = $user;
+
+				return $user;
+			}
+		}
+	}
+
+	/**
+	 * Authenticates with a previous token.
+	 * This call only returns the username, so if you need email be sure to
+	 * store it somewhere when calling authenticate.
+	 * @param  string $token the access token you retrieved earlier
+	 */
+	public function authenticateWithToken( string $token ):?User {
+		$this->accessToken = $token;
+
+		$url = "/me";
+		$response = $this->request( $url );
+
+		if ( isset( $response ) && isset( $response->data ) ) {
+			$user = new User( $this );
+			$this->updateObject( $user, $response->data );
+
+			$this->currentUser = $user;
+			return $user;
+		}
+	}
+
+	/**
+	 * Logout the current user if set
+	 */
+	public function logout():void {
+		if ( isset( $this->accessToken ) && !empty( $this->accessToken ) ) {
+			$url = "/auth/me";
+			$response = $this->request( $url, null, "DELETE" );
+			var_dump($response);
 		}
 	}
 }

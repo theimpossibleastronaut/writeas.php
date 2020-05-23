@@ -8,4 +8,5 @@ require_once( "Context.php" );
 require_once( "Post.php" );
 require_once( "Collection.php" );
 require_once( "Styles.php" );
+require_once( "User.php" );
 ?>

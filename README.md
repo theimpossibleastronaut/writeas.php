@@ -42,9 +42,11 @@ If you work with Anonymous data like Posts, it's important that you save the ret
 
 Objects like Post or Collection will update automagically after calling a save/get functions. For instance, if you ->save a Post, it's token will appear in ->token.
 
+Authentication is done on the Context. If you want to authenticate multiple users for some reason, use multiple contexts. Upon logging in you should store the access token for future sessions. Logout when you need to, don't keep tokens layout around.
+
 # Work in progress
 
-- [ ] Authentication
+- [-] Authentication
 - [x] Posts
-- [ ] Collections
-- [ ] Users
+- [-] Collections
+- [-] Users
