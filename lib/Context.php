@@ -162,6 +162,8 @@ class Context
 				return $user;
 			}
 		}
+
+		return null;
 	}
 
 	/**
@@ -183,6 +185,8 @@ class Context
 			$this->currentUser = $user;
 			return $user;
 		}
+
+		return null;
 	}
 
 	/**
