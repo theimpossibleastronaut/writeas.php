@@ -8,9 +8,10 @@ class Collection
 	public $alias;
 	public $title;
 	public $description;
-	public $styleSheet;
+	public $style_sheet;
 	public $email;
 	public $totalPosts;
+	public $views;
 
 	protected $context;
 
@@ -50,6 +51,46 @@ class Collection
 		}
 
 		return $out;
+	}
+
+	public function create( string $title, ?string $alias ){
+		if ( !empty( $this->context->getAccessToken() ) ) {
+			$url = "/collections";
+
+			$this->title = $title;
+			$this->alias = $alias;
+
+			$req = $this->context->buildRequest(
+				$this,
+				"title", "alias"
+			);
+
+			if ( !empty( $this->id ) && !empty( $this->token ) ) {
+				$url = "/posts/" . $this->id;
+			}
+
+			$response = $this->context->request( $url, $req );
+			$this->context->updateObject( $this, $response );
+		}
+	}
+
+	public function movePost( Post $post ) {
+		if ( !empty( $this->context->getAccessToken() ) &&
+			 !empty( $post->id ) && !empty( $post->token ) ) {
+			$url = "/collections/" . $this->alias . "/collect";
+
+			$obj = new stdClass;
+			$obj->id = $post->id;
+			$obj->token = $post->token;
+
+			$req = $this->context->buildRequest(
+				$obj,
+				"id", "token"
+			);
+
+			$response = $this->context->request( $url, $req );
+			$this->context->updateObject( $this, $response );
+		}
 	}
 
 }

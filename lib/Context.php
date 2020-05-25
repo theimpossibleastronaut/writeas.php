@@ -130,6 +130,12 @@ class Context
 					}
 				}
 
+				if ( $keyName === "collection" ) {
+					$collection = new Collection( $this );
+					$this->updateObject( $collection, $keyValue );
+					$keyValue = $collection;
+				}
+
 				$obj->$keyName = $keyValue;
 			}
 		}
@@ -196,7 +202,6 @@ class Context
 		if ( isset( $this->accessToken ) && !empty( $this->accessToken ) ) {
 			$url = "/auth/me";
 			$response = $this->request( $url, null, "DELETE" );
-			var_dump($response);
 		}
 	}
 }

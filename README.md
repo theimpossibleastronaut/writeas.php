@@ -46,7 +46,8 @@ Authentication is done on the Context. If you want to authenticate multiple user
 
 # Work in progress
 
-- [-] Authentication
+- [x] Authentication
 - [x] Posts
-- [-] Collections
-- [-] Users
+- [x] Collections
+- [x] Users
+- [x] Channels

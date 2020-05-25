@@ -38,15 +38,20 @@ class Post
 	 * You are responsible to store the token returned by this call
 	 * to be able to update the post.
 	 */
-	public function save() {
+	public function save( ?Collection $collection = null ) {
 		$req = $this->context->buildRequest(
 			$this,
 			"body", "title", "font", "lang", "rtl", "token"
 		);
 
 		$url = "/posts";
+
+		if ( !is_null( $collection ) ) {
+			$url = "/collections/" . $collection->alias . "/posts";
+		}
+
 		if ( !empty( $this->id ) && !empty( $this->token ) ) {
-			$url = "/posts/" . $this->id;
+			$url .= "/" . $this->id;
 		}
 
 		$response = $this->context->request( $url, $req );
