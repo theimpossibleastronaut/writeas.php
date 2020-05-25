@@ -80,7 +80,7 @@ class User
 				foreach ( $response->data as $channeldata ) {
 					$channel = new Channel( $this->context );
 					$this->context->updateObject( $channel, $channeldata );
-					$out[] = $collection;
+					$out[] = $channel;
 				}
 			}
 

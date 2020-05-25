@@ -79,7 +79,7 @@ class Collection
 			 !empty( $post->id ) && !empty( $post->token ) ) {
 			$url = "/collections/" . $this->alias . "/collect";
 
-			$obj = new stdClass;
+			$obj = new \stdClass();
 			$obj->id = $post->id;
 			$obj->token = $post->token;
 
