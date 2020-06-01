@@ -63,12 +63,24 @@ class Context
 		}
 
 		$output = curl_exec( $this->ch );
+		$statusCode = curl_getinfo( $this->ch, CURLINFO_HTTP_CODE );
 
 		curl_close( $this->ch );
+
+		if ( (int) $statusCode >= 400 ) {
+			throw new WAException( null, $statusCode );
+
+			return null;
+		}
 
 		if ( $output !== false && !empty( $output ) ) {
 			$js = @json_decode( $output );
 			if ( !empty( $js ) ) {
+				if ( isset( $js->code ) && isset( $js->error_msg ) ) {
+					if ( (int) $js->code >= 400 ) {
+						throw new WAException( null, (int) $js->code );
+					}
+				}
 				return $js;
 			}
 
