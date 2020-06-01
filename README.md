@@ -45,7 +45,9 @@ Objects like Post or Collection will update automagically after calling a save/g
 
 Authentication is done on the Context. If you want to authenticate multiple users for some reason, use multiple contexts. Upon logging in you should store the access token for future sessions. Logout when you need to, don't keep tokens layout around.
 
-# Work in progress
+All errors are transformed to WAException objects, which are catchable.
+
+# Supports the following api endpoints (near) completely
 
 - [x] Authentication
 - [x] Posts

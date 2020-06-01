@@ -69,8 +69,6 @@ class Context
 
 		if ( (int) $statusCode >= 400 ) {
 			throw new WAException( null, $statusCode );
-
-			return null;
 		}
 
 		if ( $output !== false && !empty( $output ) ) {

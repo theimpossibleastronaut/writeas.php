@@ -18,7 +18,7 @@ class WAException extends \Exception
 		503 => "Server Error"
 	);
 
-	function __construct( $message = null, $code = 0, Exception $previous = null )
+	function __construct( $message = null, $code = 0, \Exception $previous = null )
 	{
 		if ( isset( $this->exceptions[ $code ] ) ) {
 			$message = $this->exceptions[ $code ];
