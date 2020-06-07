@@ -37,15 +37,15 @@ $post->body = "Hello from Writeas.php";
 $post->save();
 ```
 
-The Context is your livelyhood for communicating with the instance you specify in it's constructor. It handles the building of requests and updating of object instances.
+The Context is your livelyhood for communicating with the instance you specify in its constructor. It handles the building of requests and updating of object instances.
 
-If you work with Anonymous data like Posts, it's important that you save the returned token that you get after initially saving your Post. Otherwise you are unable to update the post.
+If you work with Anonymous data like Posts, it's important that you save the returned token that you get after initially saving your Post (otherwise you'll be unable to update the post).
 
-Objects like Post or Collection will update automagically after calling a save/get functions. For instance, if you ->save a Post, it's token will appear in ->token.
+Objects like Post or Collection will update automagically after calling a save/get function. For instance, if you ->save a Post, it's token will appear in ->token.
 
-Authentication is done on the Context. If you want to authenticate multiple users for some reason, use multiple contexts. Upon logging in you should store the access token for future sessions. Logout when you need to, don't keep tokens layout around.
+Authentication is done on the Context (use multiple contexts if you want to authenticate multiple users). Upon logging in you should store the access token for future sessions. Logout when needed, and don't keep tokens lying around.
 
-All errors are transformed to WAException objects, which are catchable.
+All errors are transformed to catchable WAException objects.
 
 # Supports the following api endpoints (near) completely
 
